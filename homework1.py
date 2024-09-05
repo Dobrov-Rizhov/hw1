@@ -18,6 +18,15 @@ class Student:
         else:
             return 'Ошибка'
 
+    def __lt__(self, other):
+        return self.grades < other.grades
+
+    def __gt__(self, other):
+        return self.grades > other.grades
+
+    def __eq__(self, other):
+        return self.grades == other.grades
+
     def __str__(self):
         return (f'Имя: {self.name} \nФамилия: {self.surname} \nСредняя оценка за домашние задания: {self.grades} '
                 f'\nКурсы в процессе изучения: {self.courses_in_progress} \nЗавершенные курсы: Введение в программирование')
@@ -31,6 +40,15 @@ class Mentor:
         self.finished_courses = []
         self.courses_in_progress = []
         self.grades = {}
+
+    def __lt__(self, other):
+        return self.grades < other.grades
+
+    def __gt__(self, other):
+        return self.grades > other.grades
+
+    def __eq__(self, other):
+        return self.grades == other.grades
 
 
 class Lecturer(Mentor):
@@ -61,6 +79,7 @@ class Reviewer(Mentor):
 # Оценка для студента
 some_student = Student('Ruoy', 'Eman', 'Python')
 some_student.courses_in_progress += ['Python', 'Git']
+
 # Кто ставитоценку Эксперт
 best_reviewer = Reviewer('Some', 'Buddy')
 best_reviewer.courses_attached += ['Python', 'Git']
@@ -71,12 +90,15 @@ best_reviewer.rate_hw(some_student, 'Git', 10)
 # Оценка для препода
 some_lecturer = Lecturer('Some', 'Buddy')
 some_lecturer.courses_in_progress += ['Python']
+
 # Кто ставит оценку Студент
 best_student = Student('Ruoy', 'Eman', 'Python')
 best_student.courses_attached += ['Python']
 best_student.rate_hw(some_lecturer, 'Python', 10)
-
+best_student.rate_hw(some_lecturer, 'Python', 5)
+best_student.rate_hw(some_lecturer, 'Python', 4)
 some_reviewer = Reviewer('Some', 'Buddy')
+
 
 print(some_reviewer)
 print(some_lecturer)
