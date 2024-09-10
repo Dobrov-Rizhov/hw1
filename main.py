@@ -1,6 +1,3 @@
-from paramiko.agent import value
-
-
 class Student:
     def __init__(self, name, surname):
         self.name = name
@@ -14,7 +11,7 @@ class Student:
     def __str__(self):
         return (f'Имя: {self.name}'
                 f'\nФамилия: {self.surname}'
-                f'\nСредняя оценка за домашнее задание:{sum(self.grades[grades])}'
+                f'\nСредняя оценка за домашнее задание:{self.grades}'
                 f'\nКурсы в процессе изучения: {self.courses_in_progress}'
                 f'\nЗавершенные курсы: {self.finished_courses} \n')
 
@@ -52,10 +49,11 @@ class Lecture(Mentor):
         super().__init__(name, surname)
         self.average_rating = {}
 
+
     def __str__(self):
         return (f'Имя: {self.name}'
                 f'\nФамилия: {self.surname}'
-                f'\nСредняя оценка за лекции: {self.grades_lecture}\n')
+                f'\nСредняя оценка за лекции: {sum(self.grades_lecture.values())} \n')
 
 
 class Reviewer(Mentor):
@@ -88,4 +86,4 @@ some_student.rate_lecture(some_lecture, 'Git', 9)
 
 print(some_reviewer)
 print(some_lecture)
-print(some_student.grades)
+print(some_student)
