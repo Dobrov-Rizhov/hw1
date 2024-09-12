@@ -18,6 +18,13 @@ class Student:
         else:
             return 'Ошибка'
 
+    def cour(self):
+        cours_student = []
+        for cur in self.courses_in_progress:
+            cours_student.append(cur)
+        text = ', '.join(cours_student)
+        return text
+
     def sums_student(self):
         sums_grades = sum(self.grades.values(),[])
         max_grades = len(sums_grades)
@@ -40,7 +47,7 @@ class Student:
         return (f'Имя: {self.name}'
                 f'\nФамилия: {self.surname}'
                 f'\nСредняя оценка за домашнее задание: {self.sums_student()}'
-                f'\nКурсы в процессе изучения: {self.courses_in_progress}'
+                f'\nКурсы в процессе изучения: {self.cour()}'
                 f'\nЗавершенные курсы: {self.finished_courses} \n')
 
 
@@ -132,4 +139,3 @@ print(some_student1)
 print(some_student<some_student1)
 print(some_student>some_student1)
 print(some_lecture<some_lecture1)
-
