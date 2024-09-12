@@ -8,13 +8,6 @@ class Student:
         self.new_cip = []
         self.grades = {}
 
-    def __str__(self):
-        return (f'Имя: {self.name}'
-                f'\nФамилия: {self.surname}'
-                f'\nСредняя оценка за домашнее задание:{self.grades}'
-                f'\nКурсы в процессе изучения: {self.courses_in_progress}'
-                f'\nЗавершенные курсы: {self.finished_courses} \n')
-
     def rate_lecture(self, lecture, course, grade):
         if isinstance(lecture, Lecture) and course in self.courses_attached and course in lecture.courses_in_progress:
             if course in lecture.grades_lecture:
@@ -23,6 +16,21 @@ class Student:
                 lecture.grades_lecture[course] = [grade]
         else:
             return 'Ошибка'
+
+    def sums_student(self):
+        sums_grades = sum(self.grades.values(),[])
+        max_grades = len(sums_grades)
+        new_sum_grades = 0
+        for su in sums_grades:
+            new_sum_grades += su / max_grades
+        return new_sum_grades
+
+    def __str__(self):
+        return (f'Имя: {self.name}'
+                f'\nФамилия: {self.surname}'
+                f'\nСредняя оценка за домашнее задание: {self.sums_student()}'
+                f'\nКурсы в процессе изучения: {self.courses_in_progress}'
+                f'\nЗавершенные курсы: {self.finished_courses} \n')
 
 
 class Mentor:
@@ -49,11 +57,18 @@ class Lecture(Mentor):
         super().__init__(name, surname)
         self.average_rating = {}
 
+    def sums_lecture(self):
+        sums_grades = sum(self.grades_lecture.values(),[])
+        max_grades = len(sums_grades)
+        new_sum_grades = 0
+        for su in sums_grades:
+            new_sum_grades += su / max_grades
+        return new_sum_grades
 
     def __str__(self):
         return (f'Имя: {self.name}'
                 f'\nФамилия: {self.surname}'
-                f'\nСредняя оценка за лекции: {sum(self.grades_lecture.values())} \n')
+                f'\nСредняя оценка за лекции: {self.sums_lecture()} \n')
 
 
 class Reviewer(Mentor):
@@ -81,8 +96,8 @@ some_reviewer.rate_hw(some_student, 'Git', 9)
 some_lecture = Lecture('Some', 'Buddy')
 some_lecture.courses_in_progress += ['Python', 'Git']
 some_student.courses_attached += ['Python', 'Git']
-some_student.rate_lecture(some_lecture, 'Python', 9)
-some_student.rate_lecture(some_lecture, 'Git', 9)
+some_student.rate_lecture(some_lecture, 'Python', 4)
+some_student.rate_lecture(some_lecture, 'Git', 3)
 
 print(some_reviewer)
 print(some_lecture)
